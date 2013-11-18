@@ -59,22 +59,15 @@ $(document).ready(function(){
             if(bowlarray[i]._id === _id){
                 bowlarray[i].number = amount;//new property for bowlarray
             }
-            if(!isNaN(bowlarray[i].number)){
-             sum += Math.floor(bowlarray[i].cal * bowlarray[i].number);
-            }
+            sum += Math.ceil(bowlarray[i].number * bowlarray[i].cal);
         }
         return sum;
     }
     //change product amount in bowl
-    function checkString(string){
-        if(string === ""){
-            return 0;
-        }
-    }
     function changeAmount(){
         debugger;
         //var this_amount = checkString($(this).val());
-        var this_amount = parseInt((checkString($(this).val())), 10);//something goes wrong
+        var this_amount = parseInt(($(this).val()), 10);//something goes wrong
         var this_id = $(this).closest("li").attr("data-productid");
         if(isNaN(this_amount) || this_amount > 1000){
             $(DOMvariables.alertheader).text("Введите верное количество продукта.")
@@ -97,6 +90,7 @@ $(document).ready(function(){
         $(DOMvariables.alertheader).text(defaulttext);
         bowlarray.push(returnedItem);
         $(DOMvariables.bowlcolumn).render({bowllist: bowlarray}, bowlRender);
+        $("#bowlcolumn").find("header").text("Итог: " + sum + " кал.");
     }
     //get store and id of chosen element from data attribute and call search function
     function chooseProduct(el){
@@ -108,6 +102,7 @@ $(document).ready(function(){
             if(jsonArr[i]._id === itemstore){
                 for(var j = 0; j < jsonArr[i].items.length; j++){
                     if(jsonArr[i].items[j]._id === itemid){
+                        jsonArr[i].items[j].number = 0;
                         return jsonArr[i].items[j];
                     }
                 }
