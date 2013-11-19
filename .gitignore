@@ -1,0 +1,10 @@
+# WebStorm:
+.idea/
+*.iml
+
+# Dropbox:
+.dropbox
+desktop.ini
+
+# Mongoose et al:
+*.exe
